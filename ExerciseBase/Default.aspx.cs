@@ -19,7 +19,8 @@ namespace ExerciseBase
         {
             try
             {
-                this.lblResult.Text = Convert.ToInt32(this.txtNumber.Text) + this.txtString.Text;
+                string sConcatVal =  this.ConcatValues(Convert.ToInt32(this.txtNumber.Text), this.txtString.Text);
+                this.lblResult.Text = sConcatVal;
             }
             catch (Exception ex)
             {
@@ -28,17 +29,30 @@ namespace ExerciseBase
             
         }
 
+        //Entered Value Concatenator
+        public string ConcatValues(int num, string str)
+        {
+            try
+            {
+                string sConcatval = "";
+                sConcatval += Convert.ToInt32(num) + str;
+
+                return (sConcatval);
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message);
+            }            
+        }
+
         //b.Create Another Function
         protected void btnCalculate_Click(object sender, EventArgs e)
         {
             try
-            {
-                int sum = 0;
-                sum += Int32.Parse(this.txtFirstNumber.Text) + Int32.Parse(this.txtSecondNumber.Text) + Int32.Parse(this.txtThirdNumber.Text);
-                if (sum < 0)
-                    this.lblTotal.Text = "<font color='red'> " + sum.ToString() + "</font>";
-                if (sum >= 0)
-                    this.lblTotal.Text = "<font color='black'> " + sum.ToString() + "</font>";
+            {                
+                string sSumEVal = SumVal(Int32.Parse(this.txtFirstNumber.Text),Int32.Parse(this.txtSecondNumber.Text),Int32.Parse(this.txtThirdNumber.Text));
+
+                this.lblTotal.Text = sSumEVal;
             }
             catch (Exception ex)
             {
@@ -47,16 +61,35 @@ namespace ExerciseBase
             
         }
 
+        //Entered Value Adder and Evaluator
+        public string SumVal(int x, int y, int z)
+        {
+            try
+            {
+                string sSumVal = "";
+
+                int iSum = 0;
+                iSum += x + y + z;
+
+                if (iSum < 0)
+                    sSumVal = "<font color='red'> " + iSum.ToString() + "</font>";
+                if (iSum >= 0)
+                    sSumVal = "<font color='black'> " + iSum.ToString() + "</font>";
+
+                return (sSumVal);
+            }
+            catch (Exception ex)
+            {
+                return (ex.Message);
+            }            
+        }
+
         protected void btnCalc2_Click(object sender, EventArgs e)
         {
             try
             {
-                int sum = 0;
-                sum += Int32.Parse(this.txtNum1.Text) + Int32.Parse(this.txtNum2.Text) + Int32.Parse(this.txtNum3.Text);
-                if (sum < 0)
-                    this.lblTotal2.Text = "<font size='300'> " + sum.ToString() + "</font>";
-                if (sum >= 0)
-                    this.lblTotal2.Text = "<font color='green'> " + sum.ToString() + "</font>";
+                string sEmphResult = EmphResult(Int32.Parse(this.txtNum1.Text),Int32.Parse(this.txtNum2.Text),Int32.Parse(this.txtNum3.Text));
+                this.lblTotal2.Text = sEmphResult;
             }
             catch (Exception ex)
             {
@@ -64,33 +97,52 @@ namespace ExerciseBase
             }
         }
 
+        //Entered Value and Result Emphasizer
+        public string EmphResult(int x, int y, int z)
+        {
+            string sEmphResult = "";
+            int sum = x + y + z;
+            
+            if (sum < 0)
+                sEmphResult = "<font size='300'> " + sum.ToString() + "</font>";
+            if (sum >= 0)
+                sEmphResult = "<font color='green'> " + sum.ToString() + "</font>";
+
+            return (sEmphResult);
+        }
+
         protected void btnProceed_Click(object sender, EventArgs e)
         {
             try
             {
-                decimal sum = 0;            
-                
-                switch(this.txtBool.Text.ToUpper())
-                {
-                    case "F":
-                        sum += Decimal.Parse(this.txtNumber2.Text) + Decimal.Parse(this.txtNumber3.Text);
-                        this.lblOutPut.Text = "<font color='brown'> $ " + sum.ToString() + "</font>";
-                        break;
-
-                    case "T":
-                        sum += Decimal.Parse(this.txtNumber2.Text) + Decimal.Parse(this.txtNumber3.Text);
-                        sum = (sum / 100)*100;
-                        
-                        this.lblOutPut.Text = "<font color='blue'> " + sum.ToString() + "%</font>";
-                        break;
-
-                }
-                
+                string sBoolNumE = BoolNumEval(this.txtBool.Text, Decimal.Parse(this.txtNumber2.Text), Decimal.Parse(this.txtNumber3.Text));
+                this.lblOutPut.Text = sBoolNumE;
             }
             catch (Exception ex)
             {
                 this.lblOutPut.Text = ex.Message;
             }
         }
+
+        //Entered Value Evaluator based on T/F argument
+        public string BoolNumEval(string tf, decimal x, decimal y)
+        {
+            string sBoolNumE = "";
+            decimal dsum = 0;
+
+            switch (tf.ToUpper())
+            {
+                case "F":
+                    dsum += x + y;
+                    sBoolNumE = "<font color='brown'> $ " + dsum.ToString() + "</font>";
+                    break;
+
+                case "T":
+                    dsum += x + y;
+                    dsum = (dsum / 100) * 100;
+                    sBoolNumE = "<font color='blue'> " + dsum.ToString() + "%</font>";
+                    break;
+            }                
+            return sBoolNumE;        }
     }
 }
